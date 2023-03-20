@@ -1,5 +1,7 @@
 #enviroment variables
 
+PUID=1000
+<br>
 PGID=1000
 <br>
 TZ=
