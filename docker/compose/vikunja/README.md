@@ -1,8 +1,13 @@
 #enviroment variables
 
 PGID=1000
+<br>
 TZ=
+<br>
 DATABASE_NAME=
+<br>
 DATABASE_USER=
+<br>
 DATABASE_PASSWORD=
+<br>
 MYSQL_ROOT_PASSWORD=
