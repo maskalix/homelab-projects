@@ -1,12 +1,12 @@
 # homelab-projects
 Library of used project for homelab (self-hosted)
 
-YARR (Yet another RSS reader) docker image + compose
-<br>https://hub.docker.com/r/maskalicz/yarr
+Docker Compose files
+<br><b>https://github.com/maskalix/homelab-projects/tree/main/docker/compose</b>
 <br>
 <br>
-tlk docker image
-<br>https://hub.docker.com/r/maskalicz/tlk
+Docker Hub images
+<br><b>https://github.com/maskalix/homelab-projects/tree/main/docker/hub</b>
 <br>
 <br>
 Pi-hole block list
