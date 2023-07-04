@@ -1,0 +1,101 @@
+version: "3.5"
+
+networks:
+  penpot:
+
+volumes:
+  penpot_postgres_v15:
+  penpot_assets:
+
+services:
+  penpot-frontend:
+    container_name: penpot-frontend
+    image: penpotapp/frontend:latest
+    restart: always
+    ports:
+      - 9601:80
+    volumes:
+      - penpot_assets:/opt/data/assets
+    depends_on:
+      - penpot-backend
+      - penpot-exporter
+    networks:
+      - penpot
+    environment:
+      PENPOT_FLAGS: enable-registration enable-login-with-password
+
+  penpot-backend:
+    container_name: penpot-backend
+    image: penpotapp/backend:latest
+    restart: always
+    volumes:
+      - penpot_assets:/opt/data/assets
+    depends_on:
+      - penpot-postgres
+      - penpot-redis
+    networks:
+      - penpot
+    environment:
+      PENPOT_FLAGS: enable-login-with-oidc enable-registration enable-login-with-password disable-email-verification enable-smtp enable-prepl-server
+      PENPOT_OIDC_CLIENT_ID: 
+      PENPOT_OIDC_BASE_URI: 
+      PENPOT_OIDC_CLIENT_SECRET: 
+      PENPOT_OIDC_AUTH_URI: 
+      PENPOT_OIDC_TOKEN_URI: 
+      PENPOT_OIDC_USER_URI: 
+      PENPOT_PUBLIC_URI: http://localhost:9601
+      PENPOT_DATABASE_URI: postgresql://penpot-postgres/penpot
+      PENPOT_DATABASE_USERNAME: penpot
+      PENPOT_DATABASE_PASSWORD: 
+      PENPOT_REDIS_URI: redis://penpot-redis/0
+      PENPOT_ASSETS_STORAGE_BACKEND: assets-fs
+      PENPOT_STORAGE_ASSETS_FS_DIRECTORY: /opt/data/assets
+      PENPOT_TELEMETRY_ENABLED: false
+      PENPOT_SMTP_DEFAULT_FROM: 
+      PENPOT_SMTP_DEFAULT_REPLY_TO: 
+      PENPOT_SMTP_HOST: 
+      PENPOT_SMTP_PORT: 465
+      PENPOT_SMTP_USERNAME: 
+      PENPOT_SMTP_PASSWORD: 
+      PENPOT_SMTP_TLS: false
+      PENPOT_SMTP_SSL: true
+
+  penpot-exporter:
+    container_name: penpot-exporter
+    image: penpotapp/exporter:latest
+    restart: always
+    networks:
+      - penpot
+    environment:
+      # Don't touch it; this uses internal docker network to
+      # communicate with the frontend.
+      PENPOT_PUBLIC_URI: http://penpot-frontend
+      ## Redis is used for the websockets notifications.
+      PENPOT_REDIS_URI: redis://penpot-redis/0
+
+
+  penpot-postgres:
+    container_name: penpot-db
+    image: postgres:15
+    restart: always
+    stop_signal: SIGINT
+
+    volumes:
+      - penpot_postgres_v15:/var/lib/postgresql/data
+
+    networks:
+      - penpot
+
+    environment:
+      POSTGRES_INITDB_ARGS: --data-checksums
+      POSTGRES_DB: penpot
+      POSTGRES_USER: penpot
+      POSTGRES_PASSWORD: 
+
+  penpot-redis:
+    container_name: penpot-redis
+    image: redis:7
+    restart: always
+    networks:
+      - penpot
+
