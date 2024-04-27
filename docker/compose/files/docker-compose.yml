@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  filebrowser:
+    container_name: files
+    image: docker.io/filebrowser/filebrowser:latest
+    volumes:
+      - "/data/misc/files/config.yml:/.filebrowser.json"
+      - "/data/misc/files:/data"
+      - "/data:/srv"
+      - "/data/misc/files/branding:/branding"
+    command: ["--port", "80", "--database", "/data/database.db", "--root", "/srv", "--noauth"]
+    healthcheck:
+      test: ["CMD-SHELL", "/healthcheck.sh || exit 1"]
+      interval: 5s
+      timeout: 3s
+      start_period: 2s
+    networks:
+      - reverseproxy
+
+networks:
+  reverseproxy:
+    external: true
