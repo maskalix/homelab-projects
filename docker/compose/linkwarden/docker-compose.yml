@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  postgres:
+    container_name: linkwarden_db
+    image: postgres
+    env_file: 
+      - .env
+    restart: always
+    volumes:
+      - /data/misc/linkwarden/db:/var/lib/postgresql/data
+  linkwarden:
+    container_name: linkwarden
+    env_file: 
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
+    restart: always
+    image: ghcr.io/linkwarden/linkwarden:latest
+    volumes:
+      - /data/misc/linkwarden/data:/data/data
+    depends_on:
+      - postgres
