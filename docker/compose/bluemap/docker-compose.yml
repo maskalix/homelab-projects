@@ -1,0 +1,20 @@
+version: '3'
+services:
+  bluemap:
+    container_name: bluemap
+    image: ghcr.io/bluemap-minecraft/bluemap:latest
+    restart: always
+    command: -r -w
+    volumes:
+      - '/data/misc/bluemap/config:/app/config'     # bluemap config
+      - '/data/minecraft/latest/world:/app/world'   # world
+      - '/data/minecraft/latest/nether:/app/nether' # nether
+      - '/data/minecraft/latest/end:/app/end'       # end
+      - '/data/misc/bluemap/data:/app/data'         # bluemap data
+      - '/data/misc/bluemap/web:/app/web'           # bluemap web
+    networks:
+      - reverseproxy
+
+networks:
+  reverseproxy:
+    external: true
