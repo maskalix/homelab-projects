@@ -5,11 +5,11 @@ Library of used project for homelab (self-hosted)
 
 
 Docker Compose files
-<br><b>https://github.com/maskalix/homelab-projects/tree/main/docker/compose</b>
+<br>https://github.com/maskalix/homelab-projects/tree/main/docker/compose
 <br>
 <br>
 Docker Hub images
-<br><b>https://github.com/maskalix/homelab-projects/tree/main/docker/hub</b>
+<br>https://github.com/maskalix/homelab-projects/tree/main/docker/hub
 <br>
 <br>
 Pi-hole block list
