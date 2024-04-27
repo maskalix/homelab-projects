@@ -1,0 +1,11 @@
+name: guacamole
+services:
+    guacamole:
+        ports:
+            - 12000:8080
+        volumes:
+            - /data/misc/guacamole/config:/config
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - TZ=UTC
+        image: flcontainers/guacamole
