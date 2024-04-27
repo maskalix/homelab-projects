@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  code_server:
+    container_name: code
+    image: docker.io/linuxserver/code-server:latest
+    ports:
+      - "8443:8443"
+    volumes:
+      - "/data/misc/code/config:/config"
+      - "/data/misc/code/addons:/addons"
+      - "/data/web/domains:/web"
+      - "/data/bot:/bot"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Prague
+      - SUDO_PASSWORD=
+      - PROXY_DOMAIN=
+    restart: unless-stopped
+    networks:
+      - reverseproxy
+
+networks:
+  reverseproxy:
+    external: true
