@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: media-server
+    volumes:
+      - /data/misc/jellyfin/config:/config
+      - /data/misc/jellyfin/cache:/cache
+      - /data/video:/video
+      - /data/audio:/audio
+    restart: 'unless-stopped'
+    networks:
+      - reverseproxy
+
+networks:
+  reverseproxy:
+    external: true
