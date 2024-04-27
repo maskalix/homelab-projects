@@ -1,0 +1,16 @@
+version: '3'
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /data/misc/homarr/config:/app/data/configs
+      - /data/misc/homarr/icons:/app/public/icons
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - reverseproxy
+
+networks:
+  reverseproxy:
+    external: true
