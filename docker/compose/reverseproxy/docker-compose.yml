@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  reverseproxy:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: reverseproxy
+    restart: always
+    ports:
+      - "443:443"
+      - "80:80"
+      - "81:81"
+    volumes:
+      - /data/misc/reverseproxy/data:/data
+      - /etc/letsencrypt:/cert
+      - /data/misc/reverseproxy/cert:/etc/letsencrypt
+    environment:
+      - DB_SQLITE_FILE=/data/database.sqlite
+      - DISABLE_IPV6=true
+    networks:
+      - reverseproxy
+
+networks:
+  reverseproxy:
+    external: true
