@@ -1,0 +1,58 @@
+services:
+  db:
+    container_name: passbolt-db
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_DATABASE: 
+      MYSQL_USER: 
+      MYSQL_PASSWORD: 
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - passbolt
+
+  passbolt:
+    container_name: passbolt
+    image: passbolt/passbolt:latest-ce
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      APP_FULL_BASE_URL: 
+      DATASOURCES_DEFAULT_HOST: 
+      DATASOURCES_DEFAULT_USERNAME: 
+      DATASOURCES_DEFAULT_PASSWORD: 
+      DATASOURCES_DEFAULT_DATABASE:
+      EMAIL_TRANSPORT_DEFAULT_HOST: 
+      EMAIL_TRANSPORT_DEFAULT_PORT: 
+      EMAIL_TRANSPORT_DEFAULT_USERNAME: 
+      EMAIL_TRANSPORT_DEFAULT_PASSWORD:
+      EMAIL_TRANSPORT_DEFAULT_TLS: true
+      EMAIL_DEFAULT_FROM: 
+      EMAIL_DEFAULT_FROM_USERNAME: Passbolt
+    volumes:
+      - gpg_volume:/etc/passbolt/gpg
+      - jwt_volume:/etc/passbolt/jwt
+    command:
+      [
+        "/usr/bin/wait-for.sh",
+        "-t",
+        "0",
+        "db:3306",
+        "--",
+        "/docker-entrypoint.sh",
+      ]
+    ports:
+      - 7024:80
+    networks:
+      - passbolt
+
+networks:
+  passbolt:
+    name: passbolt
+
+volumes:
+  gpg_volume:
+  jwt_volume:
