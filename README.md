@@ -14,3 +14,7 @@ Library of used project for homelab (self-hosted)
 <br>
 **Pi-hole block list**
 <br>https://raw.githubusercontent.com/maskalix/homelab-projects/main/pihole_block
+<br>
+<br>
+**Portainer app list**
+<br>https://raw.githubusercontent.com/TheLustriVA/portainer-templates-Nov-2022-collection/main/templates_2_2_rc_2_2.json
