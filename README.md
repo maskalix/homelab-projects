@@ -2,16 +2,19 @@
 ## Library - the home
 <br>
 
-**Docker Compose files**
-<br>https://github.com/maskalix/homelab-projects/tree/main/docker/compose
+**New Compose files**
+<br>https://github.com/maskalix/homelab/tree/main/projects
+
+**OLD Docker Compose files**
+<br>https://github.com/maskalix/homelab/tree/main/docker/compose
 <br>
 <br>
 **Docker Hub images**
-<br>https://github.com/maskalix/homelab-projects/tree/main/docker/hub
+<br>https://github.com/maskalix/homelab/tree/main/docker/hub
 <br>
 <br>
 **Pi-hole block list**
-<br>https://raw.githubusercontent.com/maskalix/homelab-projects/main/pihole_block
+<br>https://raw.githubusercontent.com/maskalix/homelab/main/pihole_block
 <br>
 <br>
 **Portainer app list**
