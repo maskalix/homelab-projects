@@ -1,8 +1,6 @@
-# homelab-projects
-Library of used project for homelab (self-hosted)
+# Homelab
+## Library - the home
 <br>
-
-
 
 **Docker Compose files**
 <br>https://github.com/maskalix/homelab-projects/tree/main/docker/compose
