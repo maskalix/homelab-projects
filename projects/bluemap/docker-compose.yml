@@ -1,0 +1,15 @@
+services:
+  bluemap:
+    container_name: bluemap
+    image: ghcr.io/bluemap-minecraft/bluemap:latest
+    restart: always
+    command: -r -w
+    ports:
+      - "8100:8100"
+    volumes:
+      - './config:/app/config'
+      - 'WORLD_FOLDER_PATH:/app/world'
+      - 'NETHER_FOLDER_PATH:/app/nether'
+      - 'END_FOLDER_PATH:/app/end'
+      - './data:/app/data'
+      - './web:/app/web'
