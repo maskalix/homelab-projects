@@ -1,0 +1,25 @@
+services:
+  zerobyte:
+    image: ghcr.io/nicotsx/zerobyte:v0.35
+    container_name: zerobyte
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "4096:4096"
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      - TZ=Europe/Prague
+      - BASE_URL=https://ZEROBYTE_URL
+      - APP_SECRET=
+      - TRUSTED_ORIGINS=https://ZEROBYTE_URL,https://POCKET_ID_URL
+      # Disable local auth after proper enabling OIDC
+      # - WAKAPI_DISABLE_LOCAL_AUTH=true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./zerobyte:/var/lib/zerobyte
+      - /root/.config/rclone:/root/.config/rclone:ro
+      - /YOUR_DATA_FOLDER:/mnt/data:ro
+    security_opt:
+      - apparmor:unconfined
